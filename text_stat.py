@@ -24,6 +24,24 @@ def average_words_per_sentence(text):
     else:
         return 0
 
+def median_word_count_in_text(text):
+    sentences = re.split(r'[.!?]', text)
+    word_counts = []
+
+    for sentence in sentences:
+        words = sentence.split()
+        word_count = len(words)
+        word_counts.append(word_count)
+
+    sorted_counts = sorted(word_counts)
+
+    if len(sorted_counts) % 2 == 0:
+        median_count = (sorted_counts[len(sorted_counts)//2 - 1] + sorted_counts[len(sorted_counts)//2]) / 2
+    else:
+        median_count = sorted_counts[len(sorted_counts)//2]
+
+    return median_count
+    
 def text_filtering_tokenizing(text):
     for p in string.punctuation:
         text = text.replace(p, "")
@@ -79,6 +97,9 @@ print(f"Words and their frequencies:\n{word_counts}\n")
 
 avg_words_per_sentence = average_words_per_sentence(input_text)
 print(f"Average number of words per sentence: \n{avg_words_per_sentence:.2f}\n")
+
+median_words_per_sentence = median_word_count_in_text(input_text)
+print(f"Median number of words per sentence: \n{median_words_per_sentence:.2f}\n")
 
 k_value = int(input("Enter K value for top-K word N-grams: "))
 n_value = int(input("Enter N value for literal N-grams: "))
